@@ -4,10 +4,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t jevgenijkersov/rect-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jevgenijkersov/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true jevgenijkersov/rect-test npm test -- --coverage
+  - docker run -e CI=true jevgenijkersov/react-test npm test -- --coverage
 
 after_success:
   - docker build -t jevgenijkersov/multi-client ./client
@@ -16,7 +16,7 @@ after_success:
   - docker build -t jevgenijkersov/multi-worker ./worker
 # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-# take all images & push tme to docker hub
+# Take all images & push them to Docker Hub
   - docker push jevgenijkersov/multi-client
   - docker push jevgenijkersov/multi-nginx
   - docker push jevgenijkersov/multi-server
